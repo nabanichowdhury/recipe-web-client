@@ -1,4 +1,4 @@
-export async function postRecipe(data) {
+export async function postRecipe(recipe) {
   try {
     const response = await fetch(
       "http://localhost:7001/api/recipe/post-recipe",
@@ -7,7 +7,7 @@ export async function postRecipe(data) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(recipe),
       }
     );
 

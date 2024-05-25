@@ -21,10 +21,11 @@ const Navbar = () => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       setUserExist(!!authUser);
       if (authUser) {
+        console.log(authUser);
         const userData = {
-          name: authUser.displayName,
-          email: authUser.email,
-          photoURL: authUser.photoURL,
+          name: authUser?.displayName,
+          email: authUser?.email,
+          photoURL: authUser?.photoURL,
           coin: 50,
         };
         setUserData(userData);

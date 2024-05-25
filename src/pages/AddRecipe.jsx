@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { postRecipe } from "../services/postRecipe";
+import auth from "../../firebase.init";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const AddRecipe = () => {
   const [recipeImage, setRecipeImage] = useState(null);
@@ -9,36 +12,112 @@ const AddRecipe = () => {
   const [category, setCategory] = useState("");
   const [image, setImage] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
+  const [user, loading] = useAuthState(auth);
+  const [uploading, setUploading] = useState(false);
+
+  const handleFileChange = (event) => {
+    setImage(event.target.files[0]);
+  };
+  //   const handleUpload = async () => {
+  //     if (!selectedFile) return;
+
+  //     setUploading(true);
+
+  //     const formData = new FormData();
+  //     formData.append("image", selectedFile);
+
+  //     try {
+  //       const response = await axios.post(
+  //         "https://api.imgbb.com/1/upload",
+  //         formData,
+  //         {
+  //           params: {
+  //             key: "YOUR_IMGBB_API_KEY", // Replace with your ImgBB API key
+  //           },
+  //           headers: {
+  //             "Content-Type": "multipart/form-data",
+  //           },
+  //         }
+  //       );
+
+  //       setImageUrl(response.data.data.url);
+  //     } catch (error) {
+  //       console.error("Error uploading image:", error);
+  //     } finally {
+  //       setUploading(false);
+  //     }
+  //   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!image) return;
+    console.log("image: ", image);
 
+    setUploading(true);
+
+    const data = new FormData();
+    data.append("image", image);
+
+    try {
+      const response = await axios.post(
+        "https://api.imgbb.com/1/upload",
+        data,
+        {
+          params: {
+            key: "339ad5cc8b64b015d634a06bdb99b805",
+          },
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST",
+          },
+        }
+      );
+
+      setUploadedImageUrl(response.data.data.url);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    } finally {
+      setUploading(false);
+    }
+
+    // console.log("event.target: ", event.target[0].value);
+    // console.log("image: ", image);
+    // console.log("event.target: ", event.target.files[0]);
     // const form = new FormData(event.target);
     // const image = form.get("image");
-
     // const data = new FormData();
     // data.append("image", image);
-
-    // try {
-    //   const response = await fetch(
-    //     "https://api.imgbb.com/1/upload?key=1e567c36c232bdfbf4a73c9b005586ba",
+    // console.log("data: ", data);
+    // // try {
+    //   const response = await axios.post(
+    //     "https://api.imgbb.com/1/upload",
+    //     data,
     //     {
-    //       method: "POST",
-    //       body: data,
+    //       params: {
+    //         key: "339ad5cc8b64b015d634a06bdb99b805", // Replace with your ImgBB API key
+    //       },
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //       },
     //     }
     //   );
-
     //   const resdata = await response.json();
     //   const uploadedImageUrl = resdata.data.display_url;
+    //   const recipe = {
+    //     recipeImage: null,
+    //     recipeDetails: recipeDetails,
+    //     videoCode: videoCode,
+    //     country: country,
+    //     category: category,
+    //     creatorEmail: user.email,
+    //     purchasedBy: [],
+    //   };
 
-    console.log({
-      recipeImage: uploadedImageUrl,
-      recipeDetails,
-      videoCode,
-      country,
-      category,
-    });
-    // } catch (error) {
+    //   const res = await postRecipe(recipe);
+    //   console.log(res);
+    // }
+    // catch (error) {
     //   console.error("Image upload error:", error);
     // }
   };
@@ -57,6 +136,7 @@ const AddRecipe = () => {
           type="file"
           name="image"
           accept="image/*"
+          onChange={handleFileChange}
           className="file-input file-input-bordered w-full max-w-xs"
         />
       </div>
