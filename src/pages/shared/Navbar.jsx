@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { checkUserExist } from "../../services/userExist";
 import { createUser } from "../../services/createUser";
 import coinImage from "../../assets/coin.svg";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const Navbar = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
@@ -36,13 +38,14 @@ const Navbar = () => {
     });
 
     return unsubscribe;
-  }, []);
+  }, [user]);
 
   const handleUserExistence = async (email) => {
     const isUserExist = await isExist(email);
     console.log(isUserExist); // This will log true or false
 
     if (!isUserExist.success) {
+      console.log(userData);
       createUser(userData);
     } else {
       setUserData(isUserExist.data);
@@ -66,7 +69,9 @@ const Navbar = () => {
     <div>
       <div className="navbar">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">Recipe Treasures</a>
+          <Link to="/" className="btn btn-ghost text-xl">
+            Recipe Treasures
+          </Link>
         </div>
         <div className="flex">
           <div>
@@ -130,6 +135,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

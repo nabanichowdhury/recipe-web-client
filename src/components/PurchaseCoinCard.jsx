@@ -14,7 +14,7 @@ const PurchaseCoinCard = ({ details }) => {
   const handleModalData = (details) => {
     setTitle(`Do you want to buy ${details.coin} coin at ${details.price}?`);
     setContent("You will get your coins after payment.");
-    setId("my_modal_6");
+    setId(`details.id`);
     setData(details);
   };
 
@@ -37,13 +37,18 @@ const PurchaseCoinCard = ({ details }) => {
           </p>
           <div className="card-actions justify-end">
             <label
-              htmlFor="my_modal_6"
+              htmlFor={details.id}
               className="btn"
               onClick={() => handleModalData(details)}
             >
               Proceed to Buy
             </label>
-            <Modal id={id} title={title} content={content} details={data} />
+            <Modal
+              id={details.id}
+              title={title}
+              content={content}
+              details={data}
+            />
           </div>
         </div>
       </div>

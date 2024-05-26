@@ -1,5 +1,6 @@
 export async function createUser(userData) {
   try {
+    console.log("from user service", userData);
     const response = await fetch(
       "http://localhost:7001/api/users/create-user",
       {

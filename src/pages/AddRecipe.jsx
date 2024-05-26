@@ -4,6 +4,7 @@ import { postRecipe } from "../services/postRecipe";
 import auth from "../../firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 const AddRecipe = () => {
@@ -16,6 +17,7 @@ const AddRecipe = () => {
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [user, loading] = useAuthState(auth);
   const [uploading, setUploading] = useState(false);
+  const [recipeTitle, setRecipeTitle] = useState("");
   const navigate = useNavigate();
 
   const handleFileChange = (event) => {
@@ -76,6 +78,7 @@ const AddRecipe = () => {
           },
         }
       );
+      console.log("response: ", response.data);
 
       setUploadedImageUrl(response.data.data.url);
     } catch (error) {
@@ -87,6 +90,7 @@ const AddRecipe = () => {
 
     const recipe = {
       recipeImage: uploadedImageUrl,
+      title: recipeTitle,
       recipeDetails: recipeDetails,
       videoCode: videoCode,
       country: country,
@@ -123,6 +127,19 @@ const AddRecipe = () => {
           accept="image/*"
           onChange={handleFileChange}
           className="file-input file-input-bordered w-full max-w-xs"
+        />
+      </div>
+      <div className="form-control">
+        <label className="label">
+          <span className="label-text">Recipe Name</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Title of the recipe"
+          className="input input-bordered"
+          value={recipeTitle}
+          onChange={(e) => setRecipeTitle(e.target.value)}
+          required
         />
       </div>
       <div className="form-control">

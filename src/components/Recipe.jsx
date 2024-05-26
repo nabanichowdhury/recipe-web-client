@@ -3,7 +3,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { checkUserExist } from "../services/userExist";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { updateUserCoin } from "../services/updateUserCoin";
 import { updateWatchCount } from "../services/updateWatchCount"; // Assuming you have this service
 
@@ -97,6 +98,8 @@ const Recipe = ({ recipe }) => {
         watchCount: recipe.watchCount,
       };
 
+      toast.success("Recipe purchased successfully");
+
       // Update the recipe in your data source with the updated data
       // e.g., updateRecipeInDataSource(updatedRecipe);
 
@@ -113,6 +116,7 @@ const Recipe = ({ recipe }) => {
       <div className="card card-side bg-base-100 shadow-xl">
         <figure>
           <img
+            width="100px"
             src={
               recipe.recipeImage ||
               "https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg"
@@ -121,8 +125,11 @@ const Recipe = ({ recipe }) => {
           />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">{recipe.category}</h2>
+          <h2 className="card-title">{recipe.title}</h2>
           <p>Recipe Description: {recipe.recipeDetails}</p>
+
+          <p>Originated Country: {recipe.country}</p>
+          <p>Category: {recipe.category}</p>
           <p>Creator Email: {recipe.creatorEmail}</p>
           {recipe.purchasedBy.length > 0 && (
             <p>Purchased by: {recipe.purchasedBy.join(", ")}</p>
@@ -172,6 +179,7 @@ const Recipe = ({ recipe }) => {
           </div>
         </>
       )}
+      <ToastContainer />
     </div>
   );
 };

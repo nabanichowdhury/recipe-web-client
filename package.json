@@ -13,8 +13,11 @@
     "axios": "^1.7.2",
     "firebase": "^10.12.1",
     "react": "^18.2.0",
+    "react-countup": "^6.5.3",
     "react-dom": "^18.2.0",
+    "react-easy-infinite-scroll-hook": "^2.1.4",
     "react-firebase-hooks": "^5.1.1",
+    "react-infinite-scroll-hook": "^4.1.1",
     "react-router-dom": "^6.23.1",
     "react-toastify": "^10.0.5"
   },
