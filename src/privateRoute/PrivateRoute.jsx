@@ -11,6 +11,7 @@ const PrivateRoute = ({ children }) => {
   }
 
   if (!user) {
+    console.log("User not logged in. Redirecting to login page...");
     return <Navigate to="/" replace />;
   }
 

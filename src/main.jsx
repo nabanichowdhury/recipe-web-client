@@ -11,8 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router}>
-      <App />
-      <ToastContainer />
+      <ToastContainer>
+        <App />
+      </ToastContainer>
     </RouterProvider>
   </React.StrictMode>
 );

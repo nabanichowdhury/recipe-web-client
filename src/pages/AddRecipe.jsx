@@ -3,6 +3,8 @@ import axios from "axios";
 import { postRecipe } from "../services/postRecipe";
 import auth from "../../firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AddRecipe = () => {
   const [recipeImage, setRecipeImage] = useState(null);
@@ -14,6 +16,7 @@ const AddRecipe = () => {
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [user, loading] = useAuthState(auth);
   const [uploading, setUploading] = useState(false);
+  const navigate = useNavigate();
 
   const handleFileChange = (event) => {
     setImage(event.target.files[0]);
@@ -80,46 +83,28 @@ const AddRecipe = () => {
     } finally {
       setUploading(false);
     }
+    console.log("uploadedImageUrl: ", uploadedImageUrl);
 
-    // console.log("event.target: ", event.target[0].value);
-    // console.log("image: ", image);
-    // console.log("event.target: ", event.target.files[0]);
-    // const form = new FormData(event.target);
-    // const image = form.get("image");
-    // const data = new FormData();
-    // data.append("image", image);
-    // console.log("data: ", data);
-    // // try {
-    //   const response = await axios.post(
-    //     "https://api.imgbb.com/1/upload",
-    //     data,
-    //     {
-    //       params: {
-    //         key: "339ad5cc8b64b015d634a06bdb99b805", // Replace with your ImgBB API key
-    //       },
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //       },
-    //     }
-    //   );
-    //   const resdata = await response.json();
-    //   const uploadedImageUrl = resdata.data.display_url;
-    //   const recipe = {
-    //     recipeImage: null,
-    //     recipeDetails: recipeDetails,
-    //     videoCode: videoCode,
-    //     country: country,
-    //     category: category,
-    //     creatorEmail: user.email,
-    //     purchasedBy: [],
-    //   };
+    const recipe = {
+      recipeImage: uploadedImageUrl,
+      recipeDetails: recipeDetails,
+      videoCode: videoCode,
+      country: country,
+      category: category,
+      creatorEmail: user.email,
+      watchCount: 0,
+      purchasedBy: [],
+    };
+    console.log(recipe);
 
-    //   const res = await postRecipe(recipe);
-    //   console.log(res);
-    // }
-    // catch (error) {
-    //   console.error("Image upload error:", error);
-    // }
+    const res = await postRecipe(recipe);
+    console.log(res);
+    if (res.success) {
+      toast.success("Recipe added successfully");
+      navigate("/all-recipe");
+    } else {
+      toast.error("Failed to add recipe");
+    }
   };
 
   return (
