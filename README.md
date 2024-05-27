@@ -1,8 +1,43 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Recipe Collect Website
 
-Currently, two official plugins are available:
+## Submission Links
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Original Submission (Vercel):** [https://recipe-collect-website.vercel.app/](https://recipe-collect-website.vercel.app/)
+- **Updated Deployment (Firebase):** [https://recipe-collect-website.web.app/](https://recipe-collect-website.web.app/)
+
+## Request
+
+Due to unforeseen technical issues with Firebase authentication on Vercel and severe weather-related power outages, the website was redeployed on Firebase. I kindly request the reviewers to consider the updated deployment link for the submission. Your understanding and consideration would be greatly appreciated.
+
+## Project Setup
+
+To run this project locally, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com//recipe-web-client](https://github.com/nabanichowdhury/recipe-web-client)
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd recipe-web-clent
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+## Contact
+
+For any questions or further information, please contact:
+
+- **Name:** Nabani Chowdhury
+- **Email:** nabanichowdhury@gmail.com
+
+Thank you for your time and support.
+
+
