@@ -16,7 +16,7 @@ To run this project locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com//recipe-web-client
+   git clone https:/github.com/recipe-web-client
    ```
 2. Navigate to the project directory:
    ```bash
